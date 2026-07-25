@@ -1,0 +1,17 @@
+abstract class Person {
+  static int _counter = 1;
+  late int id;
+  late String name;
+  late String department;
+  late int age;
+  Person({
+    required this.id,
+    required this.name,
+    required this.department,
+    required this.age,
+  });
+  void printDetails();
+  static getId() {
+    return _counter++;
+  }
+}

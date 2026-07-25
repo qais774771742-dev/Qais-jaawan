@@ -1,0 +1,159 @@
+import 'dart:io';
+
+import 'person.dart';
+import 'student.dart';
+import 'teacher.dart';
+
+List<Person> studentList = [];
+int index = 1;
+void main() {
+  print(
+    "===========================Student Management=======================\n\n",
+  );
+  bool run = true;
+  while (run) {
+    displayServices();
+    String number = stdin.readLineSync()!;
+    switch (number) {
+      case '1':
+        addingStudetToList();
+        break;
+      case '2':
+        removePersonFromTheList();
+        break;
+      case '3':
+        printPersontInfo();
+        break;
+      case '4':
+        searchForAStudent();
+        break;
+      case '5':
+        addingTeacherToList();
+        break;
+      case '6':
+        searchForATeacher();
+        break;
+
+      case '7':
+        print("The System Is ShoutDown");
+        run = false;
+        break;
+      default:
+        print("Invalide Number \a");
+    }
+  }
+}
+
+void displayServices() {
+  print("Services List : ");
+  print("1 - Add Student .");
+  print("2 - Remove Person .");
+  print("3 - Show Person Information .");
+  print("4 - Find Student .");
+  print("5 - Add Teacher .");
+  print("6 - Find Teacher .");
+  print("7 - Stop The System .");
+
+  stdout.write("Chose Services From The Services List :");
+}
+
+void addingStudetToList() {
+  stdout.write("Enter The Student Name : ");
+  String name = stdin.readLineSync() ?? '';
+
+  stdout.write("Enter The Student Age : ");
+  int age = int.tryParse(stdin.readLineSync() ?? '') ?? 1;
+
+  stdout.write("Enter The Student Level : ");
+  int level = int.tryParse(stdin.readLineSync() ?? '') ?? 1;
+
+  stdout.write("Enter The Student Department :");
+  String department = stdin.readLineSync() ?? '';
+
+  stdout.write("Enter The Student Degree :");
+  double degree = double.tryParse(stdin.readLineSync() ?? '') ?? 1;
+  studentList.add(
+    Student(
+      id: Person.getId(),
+      name: name,
+      age: age,
+      level: level,
+      department: department,
+      degree: degree,
+    ),
+  );
+}
+
+void addingTeacherToList() {
+  stdout.write("Enter The Teacher Name : ");
+  String name = stdin.readLineSync() ?? '';
+
+  stdout.write("Enter The Teacher Age : ");
+  int age = int.tryParse(stdin.readLineSync() ?? '') ?? 1;
+
+  stdout.write("Enter The Teacher Salary : ");
+  int sal = int.tryParse(stdin.readLineSync() ?? '') ?? 1;
+
+  stdout.write("Enter The Teacher Department :");
+  String department = stdin.readLineSync() ?? '';
+
+  studentList.add(
+    Teacher(
+      id: Person.getId(),
+      name: name,
+      department: department,
+      age: age,
+      salary: sal,
+    ),
+  );
+}
+
+void removePersonFromTheList() {
+  stdout.write("Enter The Person ID : ");
+  int? id = int.tryParse(stdin.readLineSync() ?? "");
+  if (id == null) {
+    print("The Person Is Not In The DataBase!!");
+    return;
+  }
+  studentList.removeWhere((per) => per.id == id);
+  print("Person Is Deleting");
+}
+
+void printPersontInfo() {
+  print("Name      Age     Level     Department     Degree ");
+  for (Person stu in studentList) {
+    stu.printDetails();
+  }
+}
+
+void searchForAStudent() {
+  stdout.write("Enter The Student Name : ");
+  String? name = stdin.readLineSync();
+  if (name == null) {
+    print("Invaled");
+    return;
+  }
+  for (Person stu in studentList) {
+    if (stu is Student && stu.name == name) {
+      stu.printDetails();
+      break;
+    }
+  }
+  print("The Student Is Not In The DataBase!!");
+}
+
+void searchForATeacher() {
+  stdout.write("Enter The Teacher Name : ");
+  String? name = stdin.readLineSync();
+  if (name == null) {
+    print("Invaled");
+    return;
+  }
+  for (Person tech in studentList) {
+    if (tech is Teacher && tech.name == name) {
+      tech.printDetails();
+      break;
+    }
+  }
+  print("The Student Is Not In The DataBase!!");
+}

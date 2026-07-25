@@ -1,0 +1,15 @@
+import 'person.dart';
+class Teacher extends Person {
+  late int salary;
+  Teacher({
+    required super.id,
+    required super.name,
+    required super.department,
+    required super.age,
+    required this.salary,
+  });
+  @override
+  void printDetails() {
+    print("${name}      ${age}      ${department}     ${salary}");
+  }
+}
